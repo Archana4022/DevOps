@@ -3,292 +3,140 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cyber Security Portfolio</title>
-
-<!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+<title>DevOps Challenge</title>
 
 <style>
-/* RESET */
-*{margin:0;padding:0;box-sizing:border-box}
+    body {
+        margin: 0;
+        background: #0b0f19;
+        font-family: "Segoe UI", sans-serif;
+        color: #e9eefc;
+        overflow: hidden;
+    }
 
-/* BODY */
-body {
-    background: #000;
-    color: #fff;
-    font-family: "Roboto", sans-serif;
-    overflow-x:hidden;
-}
+    /* Animated glowing background gradients */
+    .bg-glow {
+        position: absolute;
+        width: 600px;
+        height: 600px;
+        border-radius: 50%;
+        filter: blur(120px);
+        opacity: 0.35;
+        animation: drift 18s infinite alternate ease-in-out;
+        z-index: -10;
+    }
 
-/* ===========================
-   CYBER MATRIX BACKGROUND
-=========================== */
-canvas#matrix {
-    position: fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    z-index:-1;
-    background:#000;
-}
+    .blue { background: #3a7bd5; top: -10%; left: -10%; }
+    .teal { background: #2bd9d9; top: 40%; left: 70%; animation-duration: 22s; }
+    .green { background: #15ff99; top: 70%; left: 20%; animation-duration: 26s; }
+    .orange { background: #ff8f3c; top: 10%; left: 60%; animation-duration: 20s; }
 
-/* ===========================
-   HERO SECTION
-=========================== */
-.hero {
-    text-align:center;
-    padding:120px 20px 60px;
-}
+    @keyframes drift {
+        from { transform: translateY(0px) translateX(0px); }
+        to { transform: translateY(80px) translateX(40px); }
+    }
 
-.glitch {
-    font-family:'Orbitron',sans-serif;
-    font-size:60px;
-    color:#00eaff;
-    animation: glitch 2s infinite;
-}
+    /* Kubernetes hexagon icons floating */
+    .kube-hex {
+        position: absolute;
+        width: 120px;
+        height: 120px;
+        background: rgba(0,140,255,0.15);
+        border: 2px solid rgba(0,150,255,0.35);
+        clip-path: polygon(25% 5%, 75% 5%, 95% 50%, 75% 95%, 25% 95%, 5% 50%);
+        animation: floatHex 12s infinite ease-in-out;
+        filter: blur(1px);
+    }
 
-@keyframes glitch {
-    0% { text-shadow:3px 3px red; }
-    20% { text-shadow:-3px -3px blue; }
-    40% { text-shadow:3px -3px green; }
-    60% { text-shadow:-3px 3px yellow; }
-    80% { text-shadow:2px 2px purple; }
-    100% { text-shadow:0 0 5px cyan; }
-}
+    @keyframes floatHex {
+        0% { transform: translateY(0px) rotate(0deg); opacity: 0.5; }
+        50% { transform: translateY(-40px) rotate(20deg); opacity: 0.8; }
+        100% { transform: translateY(0px) rotate(0deg); opacity: 0.5; }
+    }
 
-#typing {
-    font-family: "Courier New", monospace;
-    font-size: 20px;
-    color: #00ff00;
-    margin-top: 20px;
-    height:24px;
-}
+    .hex1 { top: 20%; left: 10%; }
+    .hex2 { top: 60%; left: 80%; animation-delay: -2s; }
+    .hex3 { top: 75%; left: 35%; animation-delay: -4s; }
 
-/* ===========================
-   ABOUT SECTION
-=========================== */
-.about {
-    display:flex;
-    flex-wrap:wrap;
-    gap:40px;
-    padding:60px 10%;
-    align-items:center;
-}
+    /* Title */
+    #title {
+        text-align: center;
+        font-size: 3.2rem;
+        font-weight: 800;
+        margin-top: 60px;
+        letter-spacing: 4px;
+        background: linear-gradient(to right, #00d2ff, #3a7bd5);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-transform: uppercase;
+    }
 
-.profile-img {
-    width:280px;
-    height:280px;
-    object-fit:cover;
-    border-radius:50%;
-    border:3px solid #00eaff;
-    box-shadow:0 0 15px #00eaff;
-    transition:.3s;
-}
-.profile-img:hover {
-    transform:scale(1.05);
-}
+    /* Container for statements */
+    .wrapper {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        margin-top: 80px;
+    }
 
-/* ===========================
-   PROJECT CARDS
-=========================== */
-.projects {
-    padding:60px 10%;
-    text-align:center;
-}
+    .card {
+        width: 40%;
+        background: rgba(255,255,255,0.04);
+        padding: 35px;
+        border-radius: 20px;
+        border: 1px solid rgba(255,255,255,0.08);
+        backdrop-filter: blur(14px);
+        box-shadow: 0 0 40px rgba(0,150,255,0.25);
+        transition: 0.3s ease;
+    }
 
-.project-grid {
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:25px;
-    margin-top:30px;
-}
+    .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 0 50px rgba(0,200,255,0.5);
+    }
 
-.card {
-    background:#0a0a0a;
-    padding:20px;
-    border-radius:10px;
-    border:2px solid #00eaff33;
-    box-shadow:0 0 12px #00eaff33;
-    transition:.3s;
-}
-.card:hover {
-    box-shadow:0 0 20px #00eaff;
-    transform:scale(1.03);
-}
+    .label {
+        font-size: 1.6rem;
+        font-weight: bold;
+        color: #00c3ff;
+        margin-bottom: 12px;
+    }
 
-/* ===========================
-   SKILLS TERMINAL
-=========================== */
-.skills {
-    padding:60px 10%;
-}
-
-.terminal {
-    background:#000;
-    padding:20px;
-    border-radius:10px;
-    color:#0f0;
-    font-family:"Courier New",monospace;
-    border:2px solid #444;
-    box-shadow:0 0 10px #00eaff;
-}
-
-/* ===========================
-   CONTACT
-=========================== */
-.contact {
-    text-align:center;
-    padding:50px 20px;
-}
-
-.contact a {
-    color:#00eaff;
-    text-decoration:none;
-}
-.contact a:hover {
-    text-decoration:underline;
-}
+    .text {
+        font-size: 1.4rem;
+        opacity: 0.9;
+    }
 </style>
-</head>
 
+</head>
 <body>
 
-<!-- MATRIX BACKGROUND -->
-<canvas id="matrix"></canvas>
+<!-- Glowing animated background blobs -->
+<div class="bg-glow blue"></div>
+<div class="bg-glow teal"></div>
+<div class="bg-glow green"></div>
+<div class="bg-glow orange"></div>
 
-<!-- HERO -->
-<section class="hero">
-    <div class="glitch">Cyber Security</div>
-    <div id="typing"></div>
-</section>
+<!-- Floating Kubernetes hexagons -->
+<div class="kube-hex hex1"></div>
+<div class="kube-hex hex2"></div>
+<div class="kube-hex hex3"></div>
 
-<!-- ABOUT -->
-<section class="about">
-    <img src="girl.webp" class="profile-img">
+<!-- Title -->
+<div id="title">DevOps Challenge</div>
 
-    <div class="about-text">
-        <h2>About Me</h2>
-        <p>I am a Cyber Security Professional specializing in Penetration Testing, Malware Analysis, 
-           Digital Forensics, OSINT, and Threat Intelligence.</p>
+<!-- Two statement cards -->
+<div class="wrapper">
+    <div class="card">
+        <div class="label">Statement A</div>
+        <div class="text" id="statementA">A. DevOps eliminates the need for monitoring tools.</div>
     </div>
-</section>
 
-<!-- PROJECT CARDS -->
-<section class="projects">
-    <h2>Projects</h2>
-
-    <div class="project-grid">
-        <div class="card">
-            <h3>Vulnerability Scanner</h3>
-            <p>Built custom Python-based vulnerability scanning tool.</p>
-        </div>
-
-        <div class="card">
-            <h3>WiFi Attack Suite</h3>
-            <p>Automated WPA/WPA2 testing scripts for ethical hacking.</p>
-        </div>
-
-        <div class="card">
-            <h3>Threat Intelligence Dashboard</h3>
-            <p>Real-time threat monitoring using APIs & OSINT feeds.</p>
-        </div>
+    <div class="card">
+        <div class="label">Statement B</div>
+        <div class="text" id="statementB">B. Monitoring is an essential part of DevOps for visibility.</div>
     </div>
-</section>
-
-<!-- SKILLS -->
-<section class="skills">
-    <h2>Technical Skills</h2>
-    <div class="terminal">
-        <div>> Web Pentesting</div>
-        <div>> Network Security</div>
-        <div>> Digital Forensics</div>
-        <div>> Malware Analysis</div>
-        <div>> Python & Bash</div>
-        <div>> Threat Intelligence</div>
-    </div>
-</section>
-
-<!-- CONTACT -->
-<section class="contact">
-    <h2>Contact</h2>
-    <p>Email: <a href="#">your-email@example.com</a></p>
-    <p>GitHub: <a href="#">github.com/yourname</a></p>
-    <p>LinkedIn: <a href="#">linkedin.com/in/yourname</a></p>
-</section>
-
-<!-- ======================================
-      JAVASCRIPT FOR MATRIX + TYPEWRITER
-======================================= -->
-<script>
-// ---------------- MATRIX EFFECT ----------------
-const canvas = document.getElementById("matrix");
-const ctx = canvas.getContext("2d");
-
-canvas.height = window.innerHeight;
-canvas.width  = window.innerWidth;
-
-const letters = "01ABCDEFGHIJKLMNOPQRSTUVWXYZ#$%^&*()";
-const matrix = letters.split("");
-
-let fontSize = 16;
-let columns = canvas.width / fontSize;
-let rainDrops = [];
-
-for(let x = 0; x < columns; x++)
-    rainDrops[x] = 1;
-
-function drawMatrix() {
-    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
-    ctx.fillRect(0,0,canvas.width,canvas.height);
-
-    ctx.fillStyle = "#00FF00";
-    ctx.font = fontSize + "px monospace";
-
-    for(let i = 0; i < rainDrops.length; i++) {
-        const text = matrix[Math.floor(Math.random()*matrix.length)];
-        ctx.fillText(text, i*fontSize, rainDrops[i]*fontSize);
-
-        if(rainDrops[i]*fontSize > canvas.height && Math.random()>0.975)
-            rainDrops[i]=0;
-
-        rainDrops[i]++;
-    }
-}
-
-setInterval(drawMatrix, 40);
-
-// ---------------- TYPEWRITER EFFECT ----------------
-const text = [
-    "Ethical Hacker | Penetration Tester | Threat Analyst",
-    "Securing the digital world one vulnerability at a time..."
-];
-
-let i = 0, j = 0, current = "", isDeleting = false;
-
-function typeEffect() {
-    current = text[i];
-
-    if(!isDeleting) {
-        document.getElementById("typing").innerHTML = current.substring(0, j++);
-        if(j === current.length + 1) {
-            isDeleting = true;
-            setTimeout(typeEffect, 1000);
-            return;
-        }
-    } else {
-        document.getElementById("typing").innerHTML = current.substring(0, j--);
-        if(j === 0) {
-            isDeleting = false;
-            i = (i+1) % text.length;
-        }
-    }
-
-    setTimeout(typeEffect, isDeleting ? 40 : 80);
-}
-
-typeEffect();
-</script>
+</div>
 
 </body>
 </html>
